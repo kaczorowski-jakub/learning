@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+	ID="ID_a886cb0b-47f9-4a2b-88f2-126e0d5a7d08" IssueInstant="2017-09-26T08:40:19.255Z"
+	Version="2.0">
+	<saml:Issuer>com.ca</saml:Issuer>
+	<dsig:Signature xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+		<dsig:SignedInfo>
+			<dsig:CanonicalizationMethod
+				Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#WithComments" />
+			<dsig:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+			<dsig:Reference URI="#ID_a886cb0b-47f9-4a2b-88f2-126e0d5a7d08">
+				<dsig:Transforms>
+					<dsig:Transform
+						Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+					<dsig:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+				</dsig:Transforms>
+				<dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+				<dsig:DigestValue>YEXCM5YTpLMGtLxgUamJ3z8OYjg=</dsig:DigestValue>
+			</dsig:Reference>
+		</dsig:SignedInfo>
+		<dsig:SignatureValue>gkJDt7FAUXlB1fw/fbU9+a3AUN5zMrcV2p17BVGK3E//ohZLSs7w6gEGVlZ8Ir8GUhZeUtfhQKGKMJxupeZoX4b9SiJ9jYEmfFJLJjW+nd2Rtw/7QrjpGobd9h+hyb75QWHkIkhU0xd87Agi/0OMVkEg9vAbJIW6FLC7zaAS7jg=</dsig:SignatureValue>
+		<dsig:KeyInfo>
+			<dsig:KeyValue>
+				<dsig:RSAKeyValue>
+					<dsig:Modulus>kQu1ZmeZ4p9ql1bywBC9mb3mAUI236eYhIgJjlY+5E0xKgPSGHJaDQVwK+trzeOCVh/iALh2/Xl3Qq/SExuTFkREBcWvP4IqEI38MPtcNFwERf+4vp2wsKVtZizzXCq7IbdRkzAgB+pKVrqcQCjzKrMkmtG2YM0GZqznVjwxzWk=</dsig:Modulus>
+					<dsig:Exponent>AQAB</dsig:Exponent>
+				</dsig:RSAKeyValue>
+			</dsig:KeyValue>
+		</dsig:KeyInfo>
+	</dsig:Signature>
+	<saml:Subject>
+		<saml:NameID NameQualifier="urn:picketlink:identity-federation">CN=JMETERRB,OU=CPD,OU=CENTRALA,O=LUKAS
+		</saml:NameID>
+		<saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer" />
+	</saml:Subject>
+	<saml:Conditions NotBefore="2017-09-26T08:40:19.255Z"
+		NotOnOrAfter="2017-09-27T08:40:19.255Z" />
+	<saml:AuthnStatement AuthnInstant="2017-09-26T08:40:19.255Z"
+		SessionIndex="SSLB_P24WAP022.4338816b-a296-11e7-ba01-6fff7b983dea">
+		<saml:AuthnContext>
+			<saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:cm:bearer
+			</saml:AuthnContextClassRef>
+		</saml:AuthnContext>
+	</saml:AuthnStatement>
+	<saml:AttributeStatement>
+		<saml:Attribute Name="channel">
+			<saml:AttributeValue>INT</saml:AttributeValue>
+		</saml:Attribute>
+		<saml:Attribute Name="operatorContext">
+			<saml:AttributeValue>CN=JMETERRB,OU=CPD,OU=CENTRALA,O=LUKAS
+			</saml:AttributeValue>
+		</saml:Attribute>
+		<saml:Attribute Name="realmOrg">
+			<saml:AttributeValue>eDIRECTORY</saml:AttributeValue>
+		</saml:Attribute>
+		<saml:Attribute Name="universe">
+			<saml:AttributeValue>LUCF</saml:AttributeValue>
+		</saml:Attribute>
+		<saml:Attribute Name="profileUserName">
+			<saml:AttributeValue>4763</saml:AttributeValue>
+		</saml:Attribute>
+		<saml:Attribute Name="branch">
+			<saml:AttributeValue>CPD</saml:AttributeValue>
+		</saml:Attribute>
+	</saml:AttributeStatement>
+</saml:Assertion>

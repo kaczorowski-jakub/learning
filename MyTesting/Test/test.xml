@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:person xmlns:p="http://test.com.pl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://test.com.pl test.xsd">
+	<member>sdsd</member>
+	<member>sdsd</member>
+</p:person>

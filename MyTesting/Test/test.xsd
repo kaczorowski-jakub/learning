@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://test.com.pl"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
+
+	<element name="person">
+		<complexType>
+			<choice maxOccurs="2">
+				<element name="employee" type="xs:string" />
+				<element name="member" type="xs:string" />
+			</choice>
+		</complexType>
+	</element>
+
+</schema> 
