@@ -2,7 +2,7 @@ package concurency;
 
 public class Deadlock {
     
-    @Override
+    //@Override
     public String toString2() {
         // TODO Auto-generated method stub
         return super.toString();
