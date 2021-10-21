@@ -1,1 +1,3 @@
-# udemy-jpa
+# Learning
+* Udemy JPA
+* Udemy Spring + Hibernate + Maven
