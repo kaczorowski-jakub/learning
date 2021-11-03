@@ -1,6 +1,5 @@
 package com.os.udemy.spring.hibernate;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -9,8 +8,7 @@ import com.os.udemy.spring.hibernate.entity.Course;
 import com.os.udemy.spring.hibernate.entity.Instructor;
 import com.os.udemy.spring.hibernate.entity.InstructorDetail;
 
-
-public class GetInstructorDetailDemo {
+public class GetInstructorCoursesDemo {
 
 	public static void main(String[] args) {
 
@@ -29,29 +27,24 @@ public class GetInstructorDetailDemo {
 			
 			// start a transaction
 			session.beginTransaction();
-
-			// get the instructor detail object
-			int theId = 3;
-			InstructorDetail tempInstructorDetail = 
-					session.get(InstructorDetail.class, theId);
 			
-			// print the instructor detail
-			System.out.println("tempInstructorDetail: " + tempInstructorDetail);
-						
-			// print  the associated instructor
-			System.out.println("the associated instructor: " + 
-								tempInstructorDetail.getInstructor());
+			// get the instructor from db
+			int theId = 3;
+			Instructor tempInstructor = session.get(Instructor.class, theId);		
+			
+			System.out.println("Instructor: " + tempInstructor);
+			
+			// get courses for the instructor
+			System.out.println("Courses: " + tempInstructor.getCourses());
 			
 			// commit transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 		}
-		catch (Exception exc) {
-			exc.printStackTrace();
-		}
 		finally {
-			// handle connection leak issue
+			
+			// add clean up code
 			session.close();
 			
 			factory.close();

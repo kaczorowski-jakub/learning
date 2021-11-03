@@ -1,6 +1,5 @@
 package com.os.udemy.spring.hibernate;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -9,8 +8,7 @@ import com.os.udemy.spring.hibernate.entity.Course;
 import com.os.udemy.spring.hibernate.entity.Instructor;
 import com.os.udemy.spring.hibernate.entity.InstructorDetail;
 
-
-public class GetInstructorDetailDemo {
+public class CreateInstructorDemo {
 
 	public static void main(String[] args) {
 
@@ -27,31 +25,37 @@ public class GetInstructorDetailDemo {
 		
 		try {			
 			
+			// create the objects			
+			Instructor tempInstructor = 
+					new Instructor("Susan", "Public", "susan.public@luv2code.com");
+			
+			InstructorDetail tempInstructorDetail =
+					new InstructorDetail(
+							"http://www.youtube.com",
+							"Video Games");		
+			
+			// associate the objects
+			tempInstructor.setInstructorDetail(tempInstructorDetail);
+			
 			// start a transaction
 			session.beginTransaction();
-
-			// get the instructor detail object
-			int theId = 3;
-			InstructorDetail tempInstructorDetail = 
-					session.get(InstructorDetail.class, theId);
 			
-			// print the instructor detail
-			System.out.println("tempInstructorDetail: " + tempInstructorDetail);
-						
-			// print  the associated instructor
-			System.out.println("the associated instructor: " + 
-								tempInstructorDetail.getInstructor());
+			// save the instructor
+			//
+			// Note: this will ALSO save the details object
+			// because of CascadeType.ALL
+			//
+			System.out.println("Saving instructor: " + tempInstructor);
+			session.save(tempInstructor);					
 			
 			// commit transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 		}
-		catch (Exception exc) {
-			exc.printStackTrace();
-		}
 		finally {
-			// handle connection leak issue
+			
+			// add clean up code
 			session.close();
 			
 			factory.close();

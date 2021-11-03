@@ -1,6 +1,5 @@
 package com.os.udemy.spring.hibernate;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -8,9 +7,10 @@ import org.hibernate.cfg.Configuration;
 import com.os.udemy.spring.hibernate.entity.Course;
 import com.os.udemy.spring.hibernate.entity.Instructor;
 import com.os.udemy.spring.hibernate.entity.InstructorDetail;
+import com.os.udemy.spring.hibernate.entity.Review;
+import com.os.udemy.spring.hibernate.entity.Student;
 
-
-public class GetInstructorDetailDemo {
+public class AddCoursesForMaryDemo {
 
 	public static void main(String[] args) {
 
@@ -20,6 +20,8 @@ public class GetInstructorDetailDemo {
 								.addAnnotatedClass(Instructor.class)
 								.addAnnotatedClass(InstructorDetail.class)
 								.addAnnotatedClass(Course.class)
+								.addAnnotatedClass(Review.class)
+								.addAnnotatedClass(Student.class)
 								.buildSessionFactory();
 		
 		// create session
@@ -29,29 +31,36 @@ public class GetInstructorDetailDemo {
 			
 			// start a transaction
 			session.beginTransaction();
-
-			// get the instructor detail object
-			int theId = 3;
-			InstructorDetail tempInstructorDetail = 
-					session.get(InstructorDetail.class, theId);
+				
+			// get the student mary from database
+			int studentId = 41;
+			Student tempStudent = session.get(Student.class, studentId);
 			
-			// print the instructor detail
-			System.out.println("tempInstructorDetail: " + tempInstructorDetail);
+			System.out.println("\nLoaded student: " + tempStudent);
+			System.out.println("Courses: " + tempStudent.getCourses());
+			
+			// create more courses 
+			Course tempCourse1 = new Course("Rubik's Cube - How to Speed Cube");
+			Course tempCourse2 = new Course("Atari 2600 - Game Development");
 						
-			// print  the associated instructor
-			System.out.println("the associated instructor: " + 
-								tempInstructorDetail.getInstructor());
+			// add student to courses
+			tempCourse1.addStudent(tempStudent);
+			tempCourse2.addStudent(tempStudent);
+						
+			// save the courses
+			System.out.println("\nSaving the courses ...");
 			
+			session.save(tempCourse1);
+			session.save(tempCourse2);
+						
 			// commit transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 		}
-		catch (Exception exc) {
-			exc.printStackTrace();
-		}
 		finally {
-			// handle connection leak issue
+			
+			// add clean up code
 			session.close();
 			
 			factory.close();

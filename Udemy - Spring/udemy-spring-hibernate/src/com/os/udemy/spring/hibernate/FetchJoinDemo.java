@@ -1,16 +1,15 @@
 package com.os.udemy.spring.hibernate;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import com.os.udemy.spring.hibernate.entity.Course;
 import com.os.udemy.spring.hibernate.entity.Instructor;
 import com.os.udemy.spring.hibernate.entity.InstructorDetail;
 
-
-public class GetInstructorDetailDemo {
+public class FetchJoinDemo {
 
 	public static void main(String[] args) {
 
@@ -29,29 +28,42 @@ public class GetInstructorDetailDemo {
 			
 			// start a transaction
 			session.beginTransaction();
-
-			// get the instructor detail object
-			int theId = 3;
-			InstructorDetail tempInstructorDetail = 
-					session.get(InstructorDetail.class, theId);
 			
-			// print the instructor detail
-			System.out.println("tempInstructorDetail: " + tempInstructorDetail);
-						
-			// print  the associated instructor
-			System.out.println("the associated instructor: " + 
-								tempInstructorDetail.getInstructor());
+			// option 2: Hibernate query with HQL
+			
+			// get the instructor from db
+			int theId = 3;
+
+			Query<Instructor> query = 
+					session.createQuery("select i from Instructor i "
+									+ "JOIN FETCH i.courses "
+									+ "where i.id=:theInstructorId", 
+							Instructor.class);
+
+			// set parameter on query
+			query.setParameter("theInstructorId", theId);
+			
+			// execute query and get instructor
+			Instructor tempInstructor = query.getSingleResult();
+			
+			System.out.println("luv2code: Instructor: " + tempInstructor);	
 			
 			// commit transaction
 			session.getTransaction().commit();
 			
-			System.out.println("Done!");
-		}
-		catch (Exception exc) {
-			exc.printStackTrace();
+			// close the session
+			session.close();
+			
+			System.out.println("\nluv2code: The session is now closed!\n");
+			
+			// get courses for the instructor
+			System.out.println("luv2code: Courses: " + tempInstructor.getCourses());
+			
+			System.out.println("luv2code: Done!");
 		}
 		finally {
-			// handle connection leak issue
+			
+			// add clean up code
 			session.close();
 			
 			factory.close();

@@ -1,6 +1,5 @@
 package com.os.udemy.spring.hibernate;
 
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -8,9 +7,9 @@ import org.hibernate.cfg.Configuration;
 import com.os.udemy.spring.hibernate.entity.Course;
 import com.os.udemy.spring.hibernate.entity.Instructor;
 import com.os.udemy.spring.hibernate.entity.InstructorDetail;
+import com.os.udemy.spring.hibernate.entity.Review;
 
-
-public class GetInstructorDetailDemo {
+public class CreateCourseAndReviewsDemo {
 
 	public static void main(String[] args) {
 
@@ -20,6 +19,7 @@ public class GetInstructorDetailDemo {
 								.addAnnotatedClass(Instructor.class)
 								.addAnnotatedClass(InstructorDetail.class)
 								.addAnnotatedClass(Course.class)
+								.addAnnotatedClass(Review.class)
 								.buildSessionFactory();
 		
 		// create session
@@ -29,29 +29,31 @@ public class GetInstructorDetailDemo {
 			
 			// start a transaction
 			session.beginTransaction();
-
-			// get the instructor detail object
-			int theId = 3;
-			InstructorDetail tempInstructorDetail = 
-					session.get(InstructorDetail.class, theId);
 			
-			// print the instructor detail
-			System.out.println("tempInstructorDetail: " + tempInstructorDetail);
+			
+			// create a course
+			Course tempCourse = new Course("Pacman - How To Score One Million Points");
+			
+			// add some reviews
+			tempCourse.addReview(new Review("Great course ... loved it!"));
+			tempCourse.addReview(new Review("Cool course, job well done"));
+			tempCourse.addReview(new Review("What a dumb course, you are an idiot!"));
 						
-			// print  the associated instructor
-			System.out.println("the associated instructor: " + 
-								tempInstructorDetail.getInstructor());
+			// save the course ... and leverage the cascade all :-)
+			System.out.println("Saving the course");
+			System.out.println(tempCourse);
+			System.out.println(tempCourse.getReviews());
+			
+			session.save(tempCourse);
 			
 			// commit transaction
 			session.getTransaction().commit();
 			
 			System.out.println("Done!");
 		}
-		catch (Exception exc) {
-			exc.printStackTrace();
-		}
 		finally {
-			// handle connection leak issue
+			
+			// add clean up code
 			session.close();
 			
 			factory.close();
