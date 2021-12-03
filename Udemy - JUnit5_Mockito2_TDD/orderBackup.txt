@@ -1,0 +1,1 @@
+new orderOrder{meals=[Meal{price=8, name='fires'}]} END
