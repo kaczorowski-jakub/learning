@@ -1,9 +1,12 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.cart;
+
+import com.os.udemy.junit.Meal;
+import com.os.udemy.junit.order.Order;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cart {
+class Cart {
     private List<Order> orders = new ArrayList<>();
 
     void addOrderToCart(Order order) {

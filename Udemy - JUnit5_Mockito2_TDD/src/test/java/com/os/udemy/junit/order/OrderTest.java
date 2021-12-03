@@ -1,17 +1,23 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.order;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import com.os.udemy.junit.Meal;
+import com.os.udemy.junit.extensions.BeforeAfterExtension;
+import com.os.udemy.junit.order.Order;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(BeforeAfterExtension.class)
 class OrderTest {
 
     private Order order;
@@ -46,7 +52,7 @@ class OrderTest {
         assertThat(order.getMeals(), empty());
         assertThat(order.getMeals().size(), equalTo(0));
         assertThat(order.getMeals(), hasSize(0));
-        assertThat(order.getMeals(), emptyCollectionOf(Meal.class));
+        MatcherAssert.assertThat(order.getMeals(), emptyCollectionOf(Meal.class));
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.account;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;

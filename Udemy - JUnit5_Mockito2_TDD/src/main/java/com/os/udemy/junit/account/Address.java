@@ -1,6 +1,6 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.account;
 
-public class Address {
+class Address {
     private String street;
     private String number;
 

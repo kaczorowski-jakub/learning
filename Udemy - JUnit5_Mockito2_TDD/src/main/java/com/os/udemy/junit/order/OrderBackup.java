@@ -1,8 +1,8 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.order;
 
 import java.io.*;
 
-public class OrderBackup {
+class OrderBackup {
     private Writer writer;
 
     public Writer getWriter() {

@@ -1,12 +1,15 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.account;
 
-import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumingThat;
 
-class AccountTestWithAssertJ {
+class AccountTest {
 
     @Test
     @DisplayName("New Account Should not be active")
@@ -16,7 +19,7 @@ class AccountTestWithAssertJ {
 
         // then
         assertFalse(account.isActive());
-        assertThat(account.isActive()).isFalse();
+        assertThat(account.isActive(), equalTo(false));
     }
 
     @Test
@@ -29,7 +32,7 @@ class AccountTestWithAssertJ {
 
         // then
         assertTrue(account.isActive());
-        assertThat(account.isActive()).isTrue();
+        assertThat(account.isActive(), is(true));
     }
 
     @Test
@@ -42,7 +45,7 @@ class AccountTestWithAssertJ {
 
         // then
         assertNull(address);
-        assertThat(address).isNull();
+        assertThat(address, nullValue());
     }
 
     @Test
@@ -57,6 +60,21 @@ class AccountTestWithAssertJ {
         // then
         assertNotNull(address);
         Address defaultAddress = address;
-        assertThat(defaultAddress).isNotNull();
+        assertThat(defaultAddress, notNullValue()); // nice to read as a sentence
+    }
+
+    @RepeatedTest(5)
+    void newAccountWithNotNullAddressShouldBeActive() {
+        // given
+        Address addr = new Address("Pulawska", "46/6");
+
+        // when
+        Account acc = new Account(addr);
+
+        // then
+        assumingThat(addr != null, () -> {
+            assertTrue(acc.isActive());
+        });
+
     }
 }

@@ -1,11 +1,11 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.cart;
 
 import static org.hamcrest.MatcherAssert.*;
 
-import static org.hamcrest.core.AnyOf.*;
 import static org.hamcrest.Matchers.*;
 
-import org.hamcrest.Matchers;
+import com.os.udemy.junit.cart.Cart;
+import com.os.udemy.junit.order.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ class CartTest {
         Cart cart = new Cart();
 
         // when + then
-        assertTimeout(Duration.ofMillis(10), cart::simulateLargeOrder);
+        assertTimeout(Duration.ofMillis(100), cart::simulateLargeOrder);
     }
 
     @Test

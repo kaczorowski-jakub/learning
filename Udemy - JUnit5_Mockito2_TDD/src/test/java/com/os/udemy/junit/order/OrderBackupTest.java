@@ -1,5 +1,8 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.order;
 
+import com.os.udemy.junit.Meal;
+import com.os.udemy.junit.order.Order;
+import com.os.udemy.junit.order.OrderBackup;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +33,7 @@ class OrderBackupTest {
         orderBackup.closeFile();
     }
 
+    @Tag("fries")
     @Test
     void backupOrderWithOneMeal() throws IOException {
         // given

@@ -1,6 +1,6 @@
 package com.os.udemy.junit;
 
-public class Test {
+class Test {
 
     public static void main(String[] args) {
         testCalcAdd();
