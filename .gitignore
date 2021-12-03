@@ -5,3 +5,6 @@
 **/bin
 **/**/bin
 **/**/build
+**/target
+**/.idea
+**/*.iml
