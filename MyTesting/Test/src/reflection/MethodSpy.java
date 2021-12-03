@@ -33,8 +33,8 @@ public class MethodSpy<T> {
 	}
 	
 	public static void main(String... strings) {
-
-		Class c = MethodSpy.class;
+	    Class<String> abcdef = String.class;
+		Class<MethodSpy> c = MethodSpy.class;
 		/*
 		for (Constructor<?> k : c.getDeclaredConstructors()) {
 			out.println(k.getName());
