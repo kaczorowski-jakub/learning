@@ -12,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 
 class CartServiceTest {
@@ -197,5 +196,30 @@ class CartServiceTest {
         assertThat(argumentCaptor.getValue().getOrders().size(), equalTo(1));
         assertThat(resultCart.getOrders(), hasSize(1));
         resultCart.getOrders().forEach(tmpOrder -> assertThat(tmpOrder.getOrderStatus(), equalTo(OrderStatus.PREPARING)));
+    }
+
+    @Test
+    void shouldDoNothingWhenProcessCart() {
+        // given
+        Order order = new Order();
+        Cart cart = new Cart();
+        cart.addOrderToCart(order);
+
+        CartHandler cartHandler = mock(CartHandler.class);
+        CartService cartService = new CartService(cartHandler);
+
+        given(cartHandler.canHandleCart(cart)).willReturn(true);
+
+        doNothing().when(cartHandler).sendToPrepare(cart);
+        willDoNothing().given(cartHandler).sendToPrepare(cart);
+        willDoNothing().willThrow(IllegalStateException.class).given(cartHandler).sendToPrepare(cart);
+
+        // when
+        Cart resultCart = cartService.processCart(cart);
+
+        // then
+        verify(cartHandler).sendToPrepare(cart);
+        verify(cartHandler, times(1)).sendToPrepare(cart);
+
     }
 }

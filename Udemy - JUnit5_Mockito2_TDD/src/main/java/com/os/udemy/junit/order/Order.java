@@ -29,6 +29,16 @@ public class Order {
         return orderStatus;
     }
 
+    public int totalPrice() {
+        int sum = this.meals.stream().mapToInt(meal -> meal.getPrice()).sum();
+
+        if (sum < 0) {
+            throw new IllegalStateException("Sum exceeded!" + sum);
+        }
+
+        return sum;
+    }
+
     public void chaneOrderStatus(OrderStatus newOrderStatus) {
         this.orderStatus = newOrderStatus;
     }

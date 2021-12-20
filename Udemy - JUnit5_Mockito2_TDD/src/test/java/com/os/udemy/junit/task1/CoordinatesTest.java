@@ -12,13 +12,43 @@ import static org.junit.jupiter.api.Assertions.*;
 class CoordinatesTest {
 
     @Test
-    void shouldThrowIAExceptionWhenXorYOutOfBound() {
-        // given + when + then
-        assertAll(
-                () -> assertThrows(IllegalArgumentException.class, () -> new Coordinates(-1, -1)),
-                () -> assertThrows(IllegalArgumentException.class, () -> new Coordinates(101, 1))
-        );
+    void shouldThrowIAExceptionWhenXIsLessThanZero() {
+        // given
+        int x = -1;
+        int y = 1;
 
+        // when + then
+        assertThrows(IllegalArgumentException.class, () -> new Coordinates(x, y));
+    }
+
+    @Test
+    void shouldThrowIAExceptionWhenXIsGreaterThanHundred() {
+        // given
+        int x = 101;
+        int y = 1;
+
+        // when + then
+        assertThrows(IllegalArgumentException.class, () -> new Coordinates(x, y));
+    }
+
+    @Test
+    void shouldThrowIAExceptionWhenYIsLessThanZero() {
+        // given
+        int x = 1;
+        int y = -1;
+
+        // when + then
+        assertThrows(IllegalArgumentException.class, () -> new Coordinates(x, y));
+    }
+
+    @Test
+    void shouldThrowIAExceptionWhenYIsGreaterThanHundred() {
+        // given
+        int x = 1;
+        int y = 101;
+
+        // when + then
+        assertThrows(IllegalArgumentException.class, () -> new Coordinates(x, y));
     }
 
     @Test
@@ -32,16 +62,51 @@ class CoordinatesTest {
     }
 
     @Test
-    void shouldThrowIAExceptionWhenCopyingAndExtendXorY() {
+    void shouldThrowIAExceptionWhenCopyingCoordinatesWithXLessThanZero() {
         // given
-        Coordinates coordinates = new Coordinates(80,90);
+        Coordinates coordinates = new Coordinates(0,0);
 
         // when + then
-        assertAll(
-                () -> assertThrows(IllegalArgumentException.class, () -> Coordinates.copy(coordinates, 10, 20)),
-                () -> assertThrows(IllegalArgumentException.class, () -> Coordinates.copy(coordinates, 30, 5))
-        );
-
+        assertThrows(IllegalArgumentException.class, () -> Coordinates.copy(coordinates, -10, 20));
     }
 
+    @Test
+    void shouldThrowIAExceptionWhenCopyingCoordinatesWithYLessThanZero() {
+        // given
+        Coordinates coordinates = new Coordinates(0,0);
+
+        // when + then
+        assertThrows(IllegalArgumentException.class, () -> Coordinates.copy(coordinates, 10, -10));
+    }
+
+    @Test
+    void shouldThrowIAExceptionWhenCopyingCoordinatesWithXGreaterThanZero() {
+        // given
+        Coordinates coordinates = new Coordinates(0,0);
+
+        // when + then
+        assertThrows(IllegalArgumentException.class, () -> Coordinates.copy(coordinates, 101, 20));
+    }
+
+    @Test
+    void shouldThrowIAExceptionWhenCopyingCoordinatesWithYGreaterThanZero() {
+        // given
+        Coordinates coordinates = new Coordinates(0,0);
+
+        // when + then
+        assertThrows(IllegalArgumentException.class, () -> Coordinates.copy(coordinates, 10, 101));
+    }
+
+    @Test
+    void shouldThrowIAExceptionWhenCopyingAndExtendXorY() {
+        // given
+        Coordinates coordinates = new Coordinates(50,50);
+
+        // when
+        Coordinates copiedCoordinate = Coordinates.copy(coordinates, 50, 50);
+
+        // then
+        assertThat(copiedCoordinate.getX(), equalTo(100));
+        assertThat(copiedCoordinate.getY(), equalTo(100));
+    }
 }
