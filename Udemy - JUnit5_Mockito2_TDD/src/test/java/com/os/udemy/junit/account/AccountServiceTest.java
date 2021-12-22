@@ -1,6 +1,10 @@
 package com.os.udemy.junit.account;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
 import static org.mockito.BDDMockito.*;
 
 import java.lang.reflect.Array;
@@ -13,6 +17,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@MockitoSettings(strictness = Strictness.STRICT_STUBS)
 public class AccountServiceTest {
 
     private List<Account> prepareAccountData() {
@@ -55,6 +60,21 @@ public class AccountServiceTest {
 
         // then
         assertThat(accountListRes, hasSize(0));
+    }
+
+    @Test
+    void getAccountsByName() {
+
+        // given
+        AccountRepo accountRepoMock = mock(AccountRepo.class);
+        AccountService accountService = new AccountService(accountRepoMock);
+        given(accountRepoMock.getByName("kuba")).willReturn(Collections.singletonList("nowak"));
+
+        // when
+        List<String> accountNames = accountService.findByName("kuba");
+
+        // then
+        assertThat(accountNames, Matchers.contains("nowak"));
     }
 
 }

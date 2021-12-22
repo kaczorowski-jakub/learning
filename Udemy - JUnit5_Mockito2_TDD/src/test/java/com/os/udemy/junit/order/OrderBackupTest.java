@@ -1,8 +1,6 @@
 package com.os.udemy.junit.order;
 
-import com.os.udemy.junit.Meal;
-import com.os.udemy.junit.order.Order;
-import com.os.udemy.junit.order.OrderBackup;
+import com.os.udemy.junit.meal.Meal;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 

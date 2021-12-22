@@ -1,6 +1,6 @@
 package com.os.udemy.junit.cart;
 
-import com.os.udemy.junit.Meal;
+import com.os.udemy.junit.meal.Meal;
 import com.os.udemy.junit.order.Order;
 
 import java.util.ArrayList;

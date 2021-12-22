@@ -1,4 +1,4 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.meal;
 
 import java.util.Objects;
 
@@ -6,6 +6,10 @@ public class Meal {
     private int price;
     private String name;
     private int quantity;
+
+    public Meal() {
+
+    }
 
     public Meal(int price) {
         this.price = price;
@@ -58,5 +62,13 @@ public class Meal {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public int sumPrice() {
+        return getPrice() *getQuantity();
+    }
+
+    public String getName() {
+        return name;
     }
 }

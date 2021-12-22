@@ -1,6 +1,8 @@
-package com.os.udemy.junit;
+package com.os.udemy.junit.meal;
 
 import static org.assertj.core.api.Assertions.*;
+
+import com.os.udemy.junit.meal.Meal;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
