@@ -29,4 +29,12 @@ public class GenMethod {
 		
 	}
 	
+	public static <K, V> V getByKey(K key, V val) {
+	    if (key != null) {
+	        return val;
+	    } else {
+	        return null;
+	    }
+	}
+	
 }
