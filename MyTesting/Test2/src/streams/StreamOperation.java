@@ -1,5 +1,7 @@
 package streams;
 
+import java.util.stream.Collectors;
+
 public class StreamOperation {
     public static void main(String[] args) {
         
@@ -14,5 +16,10 @@ public class StreamOperation {
         // peek
         System.out.println("-----PEEK-----");
         BoardGame.inMemoryExample().stream().peek(bg -> bg.tmpName = "TEST").forEach(System.out::println);
+        
+        // groupingBy
+        BoardGame.inMemoryExample().stream()
+        .collect(Collectors.groupingBy(game -> game.getRating()))
+        .forEach((a,b) -> System.out.println(a + " -> " + b));
     }
 }

@@ -39,7 +39,7 @@ public class Algor {
 		
 		t = new ArrayList<>(l);
 		Collections.sort(t);
-		System.out.println("Search 'ale' in not sorted list: " + Collections.binarySearch(t, "ale"));
+		System.out.println("Search 'ale' in sorted list: " + Collections.binarySearch(t, "ale"));
 		
 		System.out.println("Frequency of 'ma': " + Collections.frequency(l, "ma"));
 		System.out.println("Disjoint of t and l: " + Collections.disjoint(l, t));

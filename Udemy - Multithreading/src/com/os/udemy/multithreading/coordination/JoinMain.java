@@ -16,8 +16,12 @@ public class JoinMain {
             threads.add(ft);
             ft.setDaemon(true); // it has to be set before start - otherwise it won't work
             ft.start();
-            ft.join(2000);  // it has to be after start - otherwise it won't work and the result will be incomplete
         }
+        
+        for (Thread thread : threads) {
+            thread.join(2000);  // it has to be after start - otherwise it won't work and the result will be incomplete
+        }
+        
         
         for (int i = 0 ; i < threads.size() ; i++) {
             FactorialThread ft = threads.get(i);

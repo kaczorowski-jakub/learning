@@ -7,8 +7,7 @@ public class LongComputationDeamonMain {
         Thread thread = new Thread(new LongComputationTask(new BigInteger("2000"), new BigInteger("1000000000")));
         thread.setDaemon(true); // if set the threads will exit when the main thread has exited, // it has to be set before start - otherwise it won't work
         thread.start();
-        Thread.sleep(100);
-        thread.interrupt();
+        Thread.sleep(1000);
         System.out.println("END");
     }
     

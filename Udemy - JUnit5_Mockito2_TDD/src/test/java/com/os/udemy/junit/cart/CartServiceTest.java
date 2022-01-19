@@ -100,7 +100,7 @@ class CartServiceTest {
     }
 
     @Test
-    void processCartShouldNotSendToPreparWithValidationFalse() {
+    void processCartShouldNotSendToPrepareWithValidationFalse() {
         // given
         Order order = new Order();
         Cart cart = new Cart();
