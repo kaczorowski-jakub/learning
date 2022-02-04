@@ -83,7 +83,7 @@ public class ReentrantMain extends Application {
                 
                 
                 /*
-                // laggy working part
+                // laggy working part without tryLock
                 pricesContainer.getLockObject().lock();
                 try {
                     Label bitcoinLabel = cryptoLabels.get("BTC");
