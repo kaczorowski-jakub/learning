@@ -15,7 +15,7 @@ func methodSet() {
 	circle := circle{r: 15}
 	printShape(&circle) //	pointer value and pointer receiver
 	printShape(&circle)
-	//printShape(circle) // value and pointer receiver won't work
+	//printShape(circle) // value and pointer receiver won't work but when we change (c *circle) to (c circle) all the lines will be fine
 }
 
 type circle struct {

@@ -24,7 +24,7 @@ public class CollectionSpy {
                     break;
                 case "elementData":
                     field.setAccessible(true);
-                    Object[] arr = (Object[])field.get(collection);
+                    Object[] arr = (Object[]) field.get(collection);
                     System.out.println("elementData: " + arr.length);
                     break;
                 }
@@ -45,7 +45,23 @@ public class CollectionSpy {
                 field.setAccessible(true);
                 System.out.println("threshold: " + field.get(map).toString());
                 break;
+            case "minCapacity":
+                field.setAccessible(true);
+                System.out.println("minCapacity: " + field.get(map).toString());
+                break;
+            case "elementData":
+                field.setAccessible(true);
+                Object[] arr = (Object[]) field.get(map);
+                System.out.println("elementData: " + arr.length);
+                break;
             }
+        }
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static void fillMap(Map map, int max) {
+        for (int i = 0; i < max; i++) {
+            map.put(i, i);
         }
     }
 }

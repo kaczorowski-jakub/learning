@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Ninja -7")
+	fmt.Println("Ninja -8")
 
 	fmt.Println("Exercise #1")
 	exercise1()
