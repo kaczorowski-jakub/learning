@@ -1,4 +1,4 @@
-package com.os.udemy.collections.tree;
+package com.os.udemy.collections.map;
 
 import java.util.HashMap;
 import java.util.Map;
