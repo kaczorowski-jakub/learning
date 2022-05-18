@@ -1,25 +1,17 @@
 package com.os.udemy.ejb.beans;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.ejb.LocalBean;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 
 import com.os.udemy.ejb.entity.Category;
 import com.os.udemy.ejb.entity.Categoryext;
@@ -30,7 +22,6 @@ import com.os.udemy.ejb.entity.Third2join;
  */
 @Stateless(mappedName = "bean/categoryBean")
 @LocalBean
-@TransactionManagement(TransactionManagementType.BEAN)
 public class CategoryBean implements CategoryBeanRemote {
 
     /**
@@ -81,7 +72,9 @@ public class CategoryBean implements CategoryBeanRemote {
 
     @Override
     public Category findByTag(String tag) {
-        List<Category> resultSet = em.createQuery("select cat from Category cat, Categoryext cate where cat.categoryId=cate.categoryId and cate.tag=:tag").setParameter("tag", tag).getResultList();
+        List<Category> resultSet = em.createQuery(
+                "select cat from Category cat, Categoryext cate where cat.categoryId=cate.categoryId and cate.tag=:tag")
+                .setParameter("tag", tag).getResultList();
         return resultSet.size() > 0 ? resultSet.get(0) : null;
     }
 
@@ -93,34 +86,33 @@ public class CategoryBean implements CategoryBeanRemote {
 
     @Override
     public List<Third2join> getThird2joinByTag(String tag) {
-        List<Third2join> resultList = em.createQuery("select t2j from Category cat, Categoryext cate, Third2join t2j where cat.categoryId=cate.categoryId and cate.seq=t2j.categoryextId and cate.tag=:tag").setParameter("tag", tag).getResultList();
+        List<Third2join> resultList = em.createQuery(
+                "select t2j from Category cat, Categoryext cate, Third2join t2j where cat.categoryId=cate.categoryId and cate.seq=t2j.categoryextId and cate.tag=:tag")
+                .setParameter("tag", tag).getResultList();
         return resultList;
     }
-    
-    @Resource
-    private SessionContext sessionContext;
-    
+
     @Override
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void createCategory(int id, String name) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("udemy-ejb");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
         Category c = new Category();
         c.setCategoryId(id);
         c.setName(name);
-        UserTransaction userTxn = sessionContext.getUserTransaction();
-        try {
-            userTxn.begin();
-            em.persist(c);
-            userTxn.commit();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        c.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+        em.persist(c);
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
     }
-    
+
     @Override
     public void updateCategoryext(int id, String tag) {
         // approach #1
         String queryStr = "update Categoryext cate set cate.tag=:tag where cate.seq=:id";
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("udemy-ejb");
+        EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Query query = em.createQuery(queryStr);
         query.setParameter("id", id);
@@ -128,11 +120,14 @@ public class CategoryBean implements CategoryBeanRemote {
         int ret = query.executeUpdate();
         em.getTransaction().commit();
         System.out.println("Update categoryext: " + ret);
-        
+
         // approach #2
-        Categoryext cext = (Categoryext) em.createQuery("select cate from Categoryext cate where cate.seq=:id").setParameter("id", id).getResultList().get(0);
-        cext.setTag(cext.getTag() + "abc");
-        em.merge(cext);
+//        Categoryext cext = (Categoryext) em.createQuery("select cate from Categoryext cate where cate.seq=:id")
+//                .setParameter("id", id).getResultList().get(0);
+//        cext.setTag(cext.getTag() + "abc");
+//        em.merge(cext);
+        em.close();
+        emf.close();
     }
 
 }

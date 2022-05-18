@@ -59,10 +59,10 @@ public class CategoryBeanClient {
         lookup.getThird2joinByTag("tag10").forEach(System.out::println);
         
         System.out.println("\n----\nCreate category");
-        lookup.createCategory(100, "TEST");
+        lookup.createCategory(101, "kuba");
         
         System.out.println("\n----\nUpdate category");
-        //lookup.updateCategoryext(1, "Tag1Updt");
+        lookup.updateCategoryext(1, "Tag1Updt");
         
         
     }
