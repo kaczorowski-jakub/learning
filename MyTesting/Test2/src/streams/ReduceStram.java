@@ -20,6 +20,15 @@ public class ReduceStram {
         System.out.println(list.stream().reduce(100, (partial, element) -> partial + element));
         
         System.out.println(BoardGame.inMemoryExample().stream().reduce((partial, element) -> element.maxPlayers > partial.maxPlayers ? element : partial).get());
+        
+        // this
+        BigDecimal sum = new BigDecimal(0);
+        for (BoardGame bg : BoardGame.inMemoryExample()) {
+            sum = sum.add(bg.getPrice());
+        }
+        System.out.println(sum);
+        
+        // or this
         System.out.println(BoardGame.inMemoryExample().stream().reduce(new BigDecimal(0), (partial, element) -> partial.add(element.price), (a,b) -> a.add(b)));
     }
 
