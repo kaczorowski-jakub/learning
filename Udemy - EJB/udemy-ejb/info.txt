@@ -1,0 +1,7 @@
+This is to work with WebLogic 12 -> JDK has to be in 8 version 32
+For Eclipse to have control on WebLogic we need to run it in 8 version (64)
+Otherwise there will be a problem with controlling the server
+Java Compiler for the project has to be also 8
+
+Copy postgres JDBC to
+<<weblogic_location>>\server\user_projects\domains\base_domain\lib\
