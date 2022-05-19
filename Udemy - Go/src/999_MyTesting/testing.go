@@ -8,6 +8,8 @@ import (
 
 func main() {
 
+	createAndAssignOperator()
+
 	packageTest()
 
 	pointerNonPointerReceiver()
@@ -21,6 +23,21 @@ func main() {
 	namedParams()
 }
 
+func createAndAssignOperator() {
+	fmt.Println("===\ncreateAndAssignOperator test")
+	a, _ := test()
+	//a, _ := test()	//no new variables on left side of :=
+	//a := 12 //no new variables on left side of :=
+	a, b := test()
+
+	fmt.Println(a, b)
+}
+
+func test() (int, bool) {
+	return 1, false
+}
+
+//---------------------------
 func packageTest() {
 	fmt.Println("===\nPackage test")
 	Visible()
