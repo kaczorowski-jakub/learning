@@ -13,6 +13,7 @@ public class Message {
     @Column(name = "description")
     private String text;
 
+    // this no arguments constructor is needed for hibernate to instantiate objects
     public Message() {
 
     }

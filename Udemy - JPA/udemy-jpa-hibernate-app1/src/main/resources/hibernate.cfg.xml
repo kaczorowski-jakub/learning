@@ -10,6 +10,7 @@
         <property name="hibernate.connection.password">qbaosk20</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+        <property name="generate_statistics">true</property>
 
         <mapping class="com.os.udemy.jpahibernate.domain.Message" />
     </session-factory>
