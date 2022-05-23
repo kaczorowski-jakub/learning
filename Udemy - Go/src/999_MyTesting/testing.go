@@ -8,6 +8,8 @@ import (
 
 func main() {
 
+	assertionAndConversion()
+
 	createAndAssignOperator()
 
 	packageTest()
@@ -17,12 +19,45 @@ func main() {
 	newTest()
 	makeTest()
 
+	deferedNamedParam()
+	deferMustBeReached(1)
 	deferOrder()
 	deferTestInline()
 
 	namedParams()
 }
 
+type dog int
+
+type myStruct struct {
+	fname string
+}
+
+func (ms myStruct) Error() string {
+	return fmt.Sprint("Somehting", ms.fname)
+}
+
+func assertionAndConversion() {
+	fmt.Println("===\nassertionAndConversion test")
+
+	// conversion
+	var d dog
+	d = 12
+	fmt.Printf("%T\n", d)
+	i := int(d)
+	fmt.Printf("%T\n", i)
+
+	// assertion
+	var err error
+	err = myStruct{"Testing"}
+	fmt.Printf("%T\n", err)
+	//err.fname	//err.fname undefined (type error has no field or method fname)
+	fmt.Println(err)
+	fmt.Println(err.(myStruct).fname)
+
+}
+
+//----------------------
 func createAndAssignOperator() {
 	fmt.Println("===\ncreateAndAssignOperator test")
 	a, _ := test()
@@ -143,6 +178,30 @@ func deferOrder() {
 		defer fmt.Println(i)
 	}
 	fmt.Println("end")
+}
+
+func deferMustBeReached(a int) {
+	fmt.Println("===\nDefer Must Be Reached")
+	defer fmt.Println("Defer A")
+	if a > 0 {
+		return
+	}
+
+	defer fmt.Println("Defer B")              // if a> 0 this will not be reached -> won't be printed
+	fmt.Println("Exit of deferMustBeReached") // if a>0 this won't be printed neither
+}
+
+func deferedNamedParam() {
+	fmt.Println("===\nDefer Named Param")
+	fmt.Println(deferedNamedParamIn())
+}
+
+func deferedNamedParamIn() (a int) {
+	defer func() {
+		a = 100 // this will be returned
+	}()
+
+	return 5
 }
 
 //--------------------------
