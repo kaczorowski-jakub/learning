@@ -6,6 +6,24 @@ import (
 	"com.os.golang.testing/inner"
 )
 
+/**
+Useful go commands
+gofmt
+	formats the current directory go files
+        gofmt  ./...
+go vet
+	checks suspicious constructs
+        go vet ./...
+golint
+	poor code styling
+        golint ./...
+godoc
+	creates a web documentation
+
+./... as a parameter makes the command to be applicable
+      for all the go file in the current and any inner directory
+*/
+
 func main() {
 
 	assertionAndConversion()
@@ -19,6 +37,7 @@ func main() {
 	newTest()
 	makeTest()
 
+	deferedNamedParamRealLife()
 	deferedNamedParam()
 	deferMustBeReached(1)
 	deferOrder()
@@ -157,6 +176,26 @@ func (c customer) New(uid string, email string) customer {
 }
 
 //--------------------------------------
+func deferedNamedParamRealLife() {
+	fmt.Println("===\ndeferedNamedParamRealLife")
+	deferedNamedParamRealLifeInner()
+}
+
+func deferedNamedParamRealLifeInner() (i int, s string) {
+	fmt.Println("===\nDefer Test Inline")
+	defer func() {
+		fmt.Println("i is ", i)
+		fmt.Println("s is ", s)
+	}()
+
+	i = 100
+	s = "a houndred"
+
+	ii := 200
+	ss := "two houndred"
+	return ii, ss
+}
+
 func deferTestInline() {
 	fmt.Println("===\nDefer Test Inline")
 	a := 101
