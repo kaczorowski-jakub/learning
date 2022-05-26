@@ -6,7 +6,27 @@ import (
 	"com.os.golang.testing/inner"
 )
 
+/**
+Useful go commands
+gofmt
+	formats the current directory go files
+        gofmt  ./...
+go vet
+	checks suspicious constructs
+        go vet ./...
+golint
+	poor code styling
+        golint ./...
+godoc
+	creates a web documentation
+
+./... as a parameter makes the command to be applicable
+      for all the go file in the current and any inner directory
+*/
+
 func main() {
+
+	assertionAndConversion()
 
 	createAndAssignOperator()
 
@@ -17,12 +37,46 @@ func main() {
 	newTest()
 	makeTest()
 
+	deferedNamedParamRealLife()
+	deferedNamedParam()
+	deferMustBeReached(1)
 	deferOrder()
 	deferTestInline()
 
 	namedParams()
 }
 
+type dog int
+
+type myStruct struct {
+	fname string
+}
+
+func (ms myStruct) Error() string {
+	return fmt.Sprint("Somehting", ms.fname)
+}
+
+func assertionAndConversion() {
+	fmt.Println("===\nassertionAndConversion test")
+
+	// conversion
+	var d dog
+	d = 12
+	fmt.Printf("%T\n", d)
+	i := int(d)
+	fmt.Printf("%T\n", i)
+
+	// assertion
+	var err error
+	err = myStruct{"Testing"}
+	fmt.Printf("%T\n", err)
+	//err.fname	//err.fname undefined (type error has no field or method fname)
+	fmt.Println(err)
+	fmt.Println(err.(myStruct).fname)
+
+}
+
+//----------------------
 func createAndAssignOperator() {
 	fmt.Println("===\ncreateAndAssignOperator test")
 	a, _ := test()
@@ -122,6 +176,26 @@ func (c customer) New(uid string, email string) customer {
 }
 
 //--------------------------------------
+func deferedNamedParamRealLife() {
+	fmt.Println("===\ndeferedNamedParamRealLife")
+	deferedNamedParamRealLifeInner()
+}
+
+func deferedNamedParamRealLifeInner() (i int, s string) {
+	fmt.Println("===\nDefer Test Inline")
+	defer func() {
+		fmt.Println("i is ", i)
+		fmt.Println("s is ", s)
+	}()
+
+	i = 100
+	s = "a houndred"
+
+	ii := 200
+	ss := "two houndred"
+	return ii, ss
+}
+
 func deferTestInline() {
 	fmt.Println("===\nDefer Test Inline")
 	a := 101
@@ -143,6 +217,30 @@ func deferOrder() {
 		defer fmt.Println(i)
 	}
 	fmt.Println("end")
+}
+
+func deferMustBeReached(a int) {
+	fmt.Println("===\nDefer Must Be Reached")
+	defer fmt.Println("Defer A")
+	if a > 0 {
+		return
+	}
+
+	defer fmt.Println("Defer B")              // if a> 0 this will not be reached -> won't be printed
+	fmt.Println("Exit of deferMustBeReached") // if a>0 this won't be printed neither
+}
+
+func deferedNamedParam() {
+	fmt.Println("===\nDefer Named Param")
+	fmt.Println(deferedNamedParamIn())
+}
+
+func deferedNamedParamIn() (a int) {
+	defer func() {
+		a = 100 // this will be returned
+	}()
+
+	return 5
 }
 
 //--------------------------
