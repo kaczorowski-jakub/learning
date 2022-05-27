@@ -11,7 +11,13 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
         <property name="generate_statistics">true</property>
-
+        <property name="hbm2ddl.auto">update</property>
+        <!--
+            hbm2ddl.auto = update -> creates an entity if it does not exist
+                         = create -> drops an entity when creating session and creates an entity
+                         = create-drop -> as create but then drop on session close
+        -->
         <mapping class="com.os.udemy.jpahibernate.domain.Message" />
+        <mapping class="com.os.udemy.jpahibernate.domain.Person" />
     </session-factory>
 </hibernate-configuration>
