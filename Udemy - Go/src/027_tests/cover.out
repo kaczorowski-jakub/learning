@@ -1,0 +1,9 @@
+mode: set
+com.os.udemy.golang.testing/main.go:10.13,15.2 3 0
+com.os.udemy.golang.testing/main.go:17.18,19.2 1 0
+com.os.udemy.golang.testing/main.go:21.27,23.23 2 1
+com.os.udemy.golang.testing/main.go:26.2,26.12 1 1
+com.os.udemy.golang.testing/main.go:23.23,25.3 1 1
+com.os.udemy.golang.testing/main.go:29.34,31.23 2 0
+com.os.udemy.golang.testing/main.go:34.2,34.16 1 0
+com.os.udemy.golang.testing/main.go:31.23,33.3 1 0
