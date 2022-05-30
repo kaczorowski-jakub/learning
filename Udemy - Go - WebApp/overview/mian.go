@@ -1,17 +1,22 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"sort"
 	"time"
+
+	"com.os.udemy.goweb.overview/helpers"
 )
 
 var s = "seven"
 
 func main() {
-
-	interfaces()
+	//jsons()
+	//channels()
+	//packages()
+	//interfaces()
 	//loops()
 	//decisions()
 	//slices()
@@ -21,6 +26,85 @@ func main() {
 	//variables()
 }
 
+type Person struct {
+	FistName  string `json:"first_name"`
+	HairColor string `json:"hair_color"`
+	HasDog    bool   `json:"has_dog"`
+}
+
+func jsons() {
+	myJson := `
+	[
+		{
+			"first_name":"Clark",
+			"last_name":"Kent",
+			"hair_color":"black",
+			"has_dog":true
+		},
+		{
+			"first_name":"Bruce",
+			"last_name":"Wayne",
+			"hair_color":"black",
+			"has_dog":false
+		}
+	]`
+
+	fmt.Println(myJson)
+	umar := []Person{}
+	err := json.Unmarshal([]byte(myJson), &umar)
+	if err != nil {
+		log.Println("error", err)
+	}
+
+	fmt.Println(umar)
+
+	mySlice := []Person{
+		Person{
+			FistName:  "Janek",
+			HairColor: "green",
+			HasDog:    true,
+		},
+		Person{
+			FistName:  "Barbra",
+			HairColor: "Red",
+			HasDog:    false,
+		},
+	}
+
+	newJson, err := json.MarshalIndent(mySlice, "", "     ")
+	if err != nil {
+		log.Println("error", err)
+	}
+
+	fmt.Println(string(newJson))
+
+}
+
+//-----------------------
+func channels() {
+	intChan := make(chan int)
+	defer close(intChan)
+
+	go CalculateValue(intChan)
+
+	fmt.Println(<-intChan)
+}
+
+const numPool = 10
+
+func CalculateValue(intChan chan int) {
+	rn := helpers.RandomNumber(numPool)
+	intChan <- rn
+}
+
+//------------------------
+func packages() {
+	var myVar helpers.SomeType
+	myVar.TypeAge = 12
+	myVar.TypeName = "AAA"
+}
+
+//---------------------
 type Animal interface {
 	Says() string
 	NumberOfLegs() int
@@ -49,12 +133,28 @@ func (d Dog) NumberOfLegs() int {
 	return 4
 }
 
+func (d Gorilla) Says() string {
+	return "Blah"
+}
+
+func (d Gorilla) NumberOfLegs() int {
+	return 2
+}
+
 func interfaces() {
 	d := Dog{
 		Name:  "Samson",
 		Breed: "German Shephered",
 	}
 	PrintInfo(d)
+
+	g := Gorilla{
+		Name:          "Jack",
+		Color:         "black",
+		NumberofTeeth: 34,
+	}
+
+	PrintInfo(g)
 }
 
 //------------------------
