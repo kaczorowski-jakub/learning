@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"com.os.golang.testing/inner"
 )
@@ -26,6 +27,8 @@ godoc
 
 func main() {
 
+	testingMap()
+
 	assertionAndConversion()
 
 	createAndAssignOperator()
@@ -46,6 +49,30 @@ func main() {
 	namedParams()
 }
 
+type key struct {
+	name string
+	age  int
+	ki   keyInner
+}
+
+type keyInner struct {
+	date time.Time
+}
+
+func testingMap() {
+	fmt.Println("===\ntesting map")
+	m := map[key]string{}
+	tm := time.Now()
+	m[key{"1", 2, keyInner{}}] = "asa"
+	m[key{"2", 3, keyInner{tm}}] = "kielbasa"
+	fmt.Println(m)
+	fmt.Println(m[key{"1", 2, keyInner{}}])
+	fmt.Println(m[key{"1", 4, keyInner{}}])
+	fmt.Println(m[key{"2", 3, keyInner{}}])
+	fmt.Println(m[key{"2", 3, keyInner{tm}}])
+}
+
+//-----------------------------
 type dog int
 
 type myStruct struct {
@@ -179,10 +206,10 @@ func (c customer) New(uid string, email string) customer {
 func deferedNamedParamRealLife() {
 	fmt.Println("===\ndeferedNamedParamRealLife")
 	deferedNamedParamRealLifeInner()
+	deferedNamedParamRealLifeInnerNil()
 }
 
 func deferedNamedParamRealLifeInner() (i int, s string) {
-	fmt.Println("===\nDefer Test Inline")
 	defer func() {
 		fmt.Println("i is ", i)
 		fmt.Println("s is ", s)
@@ -194,6 +221,28 @@ func deferedNamedParamRealLifeInner() (i int, s string) {
 	ii := 200
 	ss := "two houndred"
 	return ii, ss
+}
+
+func deferedNamedParamRealLifeInnerNil() (ds error) {
+	defer func() {
+		fmt.Println("After deferedNamedParamRealLifeInnerNil", ds)
+	}()
+
+	ds = deferStruct{
+		s: "ABCD",
+		i: 123,
+	}
+	fmt.Println("Before deferedNamedParamRealLifeInnerNil", ds)
+	return nil
+}
+
+type deferStruct struct {
+	s string
+	i int
+}
+
+func (ds deferStruct) Error() string {
+	return fmt.Sprintf("%v, %v", ds.s, ds.i)
 }
 
 func deferTestInline() {
