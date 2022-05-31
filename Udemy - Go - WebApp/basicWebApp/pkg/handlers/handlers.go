@@ -11,12 +11,12 @@ import (
 
 // HomeNew is home page handler
 func HomeNew(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.html")
+	render.RenderTemplate(w, "home.page.html")
 }
 
 // AboutNew is the about page handler
 func AboutNew(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.html")
+	render.RenderTemplate(w, "about.page.html")
 }
 
 // Home is home page handler
