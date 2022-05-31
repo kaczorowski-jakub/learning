@@ -27,6 +27,9 @@ godoc
 
 func main() {
 
+	functionInStruct()
+	passingFunctions()
+
 	testingMap()
 
 	assertionAndConversion()
@@ -49,6 +52,40 @@ func main() {
 	namedParams()
 }
 
+type funStruct struct {
+	s         string
+	i         int
+	sayMyName func() string
+}
+
+func functionInStruct() {
+	fmt.Println("===\nfunctionInStruct")
+	fs := funStruct{
+		s: "Allan",
+		i: 123,
+		sayMyName: func() string {
+			return "Allan"
+		},
+	}
+
+	fmt.Println(fs.sayMyName())
+}
+
+func passingFunctions() {
+	fmt.Println("===\npassingFunctions")
+	f := func(a int, s string) (string, float32) {
+		return s + " - modified", float32(a + 1000)
+	}
+	passingFunctionsT1(f)
+}
+
+func passingFunctionsT1(f1 func(int, string) (string, float32)) {
+
+	s, f := f1(1, "A")
+	fmt.Println(s, f)
+}
+
+//----------------------
 type key struct {
 	name string
 	age  int
