@@ -7,15 +7,32 @@ import (
 	"net/http"
 	"path/filepath"
 	"text/template"
+
+	"com.os.udemy.gowebb.basic/pkg/config"
 )
 
 var functions = template.FuncMap{}
 
+var appConfig *config.AppConfig
+
+func Init(appCfg *config.AppConfig) {
+	appConfig = appCfg
+}
+
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	tc, err := CreateTemplateCache(w)
-	if err != nil {
-		log.Fatal(err)
+
+	var tc map[string]*template.Template
+	var err error
+
+	if appConfig.UseCache {
+		tc = appConfig.TemplateCache
+	} else {
+		tc, err = CreateTemplateCache()
+		if err != nil {
+			log.Panic("Cannot read cache templates")
+		}
 	}
+
 	t, ok := tc[tmpl]
 	if !ok {
 		log.Fatal("Cannot Find the given template:" + tmpl)
@@ -39,7 +56,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 }
 
 // CreateTemplateCache cretes a template cache as a map
-func CreateTemplateCache(w http.ResponseWriter) (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
 	pages, err := filepath.Glob("../../templates/*.page.html")
