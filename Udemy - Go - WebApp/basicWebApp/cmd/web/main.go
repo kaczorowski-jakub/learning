@@ -28,11 +28,18 @@ func main() {
 	repo := handlers.NewRepo(&appCfg)
 	handlers.NewHandlers(repo)
 
-	http.HandleFunc("/", handlers.Repo.MyHandler)
-	http.HandleFunc("/home", handlers.Repo.Home)
-	http.HandleFunc("/about", handlers.Repo.About)
-	http.HandleFunc("/aboutNew", handlers.Repo.AboutNew)
-	http.HandleFunc("/homeNew", handlers.Repo.HomeNew)
-	http.HandleFunc("/divide", handlers.Repo.Divide)
-	http.ListenAndServe(port, nil)
+	// http.HandleFunc("/", handlers.Repo.MyHandler)
+	// http.HandleFunc("/home", handlers.Repo.Home)
+	// http.HandleFunc("/about", handlers.Repo.About)
+	// http.HandleFunc("/aboutNew", handlers.Repo.AboutNew)
+	// http.HandleFunc("/homeNew", handlers.Repo.HomeNew)
+	// http.HandleFunc("/divide", handlers.Repo.Divide)
+	//http.ListenAndServe(port, nil)
+
+	srv := &http.Server{
+		Addr:    port,
+		Handler: routes(&appCfg),
+	}
+
+	err = srv.ListenAndServe()
 }

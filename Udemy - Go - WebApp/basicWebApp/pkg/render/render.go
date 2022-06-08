@@ -9,6 +9,7 @@ import (
 	"text/template"
 
 	"com.os.udemy.gowebb.basic/pkg/config"
+	"com.os.udemy.gowebb.basic/pkg/models"
 )
 
 var functions = template.FuncMap{}
@@ -19,7 +20,15 @@ func Init(appCfg *config.AppConfig) {
 	appConfig = appCfg
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+//AddDefaultData adds information shared across all of the pages
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+
+	td.StringMap["app.vendor"] = "offSoft"
+
+	return td
+}
+
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 
 	var tc map[string]*template.Template
 	var err error
@@ -38,8 +47,9 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		log.Fatal("Cannot Find the given template:" + tmpl)
 	}
 
+	td = AddDefaultData(td)
 	buf := new(bytes.Buffer)
-	_ = t.Execute(buf, nil)
+	_ = t.Execute(buf, td)
 
 	_, err = buf.WriteTo(w)
 	if err != nil {

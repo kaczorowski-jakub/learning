@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"com.os.udemy.gowebb.basic/pkg/config"
+	"com.os.udemy.gowebb.basic/pkg/models"
 	"com.os.udemy.gowebb.basic/pkg/render"
 )
 
@@ -28,12 +29,18 @@ func NewHandlers(r *Repository) {
 
 // HomeNew is home page handler
 func (m *Repository) HomeNew(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.html")
+	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
 }
 
 // AboutNew is the about page handler
 func (m *Repository) AboutNew(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.html")
+
+	// business logic
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello again"
+	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
 
 // Home is home page handler
