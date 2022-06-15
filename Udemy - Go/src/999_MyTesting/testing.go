@@ -27,6 +27,8 @@ godoc
 
 func main() {
 
+	timeTesting()
+
 	functionInStruct()
 	passingFunctions()
 
@@ -52,6 +54,15 @@ func main() {
 	namedParams()
 }
 
+func timeTesting() {
+	fmt.Println("===\ntimeTesting")
+	var tm time.Time = time.Now().UTC()
+	fmt.Println(tm.Format(time.RFC822))
+	fmt.Println(tm.Format("2006-02-01"))
+	fmt.Println(tm.Format("2006-01-02"))
+}
+
+//------------------------
 type funStruct struct {
 	s         string
 	i         int

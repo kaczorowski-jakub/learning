@@ -6,31 +6,55 @@ import (
 	"log"
 	"net/http"
 
+	"com.os.udemy.gowebb.basic/pkg/config"
+	"com.os.udemy.gowebb.basic/pkg/models"
 	"com.os.udemy.gowebb.basic/pkg/render"
 )
 
+var Repo *Repository
+
+type Repository struct {
+	App *config.AppConfig
+}
+
+func NewRepo(a *config.AppConfig) *Repository {
+	return &Repository{
+		App: a,
+	}
+}
+
+func NewHandlers(r *Repository) {
+	Repo = r
+}
+
 // HomeNew is home page handler
-func HomeNew(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.html")
+func (m *Repository) HomeNew(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "home.page.html", &models.TemplateData{})
 }
 
 // AboutNew is the about page handler
-func AboutNew(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about.page.html")
+func (m *Repository) AboutNew(w http.ResponseWriter, r *http.Request) {
+
+	// business logic
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello again"
+	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
 
 // Home is home page handler
-func Home(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "This is my Home page")
 }
 
 // About is the about page handler
-func About(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	sum := addValues(2, 3)
 	fmt.Fprintf(w, fmt.Sprintf("About me page and the result is: %d", sum))
 }
 
-func Divide(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) Divide(w http.ResponseWriter, r *http.Request) {
 	f, err := divideValues(100, 10)
 	if err != nil {
 		fmt.Fprintln(w, err)
@@ -52,7 +76,7 @@ func addValues(x, y int) int {
 	return x + y
 }
 
-func MyHandler(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) MyHandler(w http.ResponseWriter, r *http.Request) {
 	n, err := fmt.Fprintf(w, "Hello, World")
 	if err != nil {
 		log.Println(err)
