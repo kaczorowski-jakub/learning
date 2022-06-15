@@ -1,9 +1,6 @@
 package com.os.udemy.jpahibernate.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +8,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
+@NamedQuery(name = "person.getAll", query = "from Person")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +33,5 @@ public class Person {
             @AttributeOverride(name="zip", column=@Column(name="mail_zip"))
     })
     private Address mailAddress;
+
 }
