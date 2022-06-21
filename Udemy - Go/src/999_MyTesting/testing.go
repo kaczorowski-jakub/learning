@@ -27,6 +27,8 @@ godoc
 
 func main() {
 
+	passingStructsAndArrays()
+
 	timeTesting()
 
 	functionInStruct()
@@ -54,6 +56,38 @@ func main() {
 	namedParams()
 }
 
+type t1 struct {
+	v      string
+	i      int
+	b      bool
+	emails []t2
+	vvv    t3
+}
+
+type t2 struct {
+	email string
+}
+
+type t3 struct {
+	val int
+}
+
+func passingStructsAndArrays() {
+	fmt.Println("===\npassingStructsAndArrays")
+	x1 := t1{"1", 1, false, []t2{{"a@b"}}, t3{100}}
+	//	x2 := t1{"1", 1, false, []t2{t2{"a@b"}}}
+	//fmt.Println(x1 == x2)
+	change(x1)
+	fmt.Println(x1)
+}
+
+func change(t t1) {
+	t.emails[0].email = "changed@com.pl"
+	t.v = "changed"
+	t.vvv.val = 777
+}
+
+//-------------------------
 func timeTesting() {
 	fmt.Println("===\ntimeTesting")
 	var tm time.Time = time.Now().UTC()
