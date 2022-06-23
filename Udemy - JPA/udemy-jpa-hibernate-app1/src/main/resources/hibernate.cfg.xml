@@ -30,5 +30,12 @@
         <mapping class="com.os.udemy.jpahibernate.domain.StudentOrphanRemoval" />
         <mapping class="com.os.udemy.jpahibernate.domain.Passport" />
         <mapping class="com.os.udemy.jpahibernate.domain.Customer" />
+        <mapping class="com.os.udemy.jpahibernate.domain.CustomerMapsId" />
+        <mapping class="com.os.udemy.jpahibernate.domain.PassportMapsId" />
+        <mapping class="com.os.udemy.jpahibernate.domain.Actor" />
+        <mapping class="com.os.udemy.jpahibernate.domain.Movie" />
+        <mapping class="com.os.udemy.jpahibernate.domain.Employee" />
+        <mapping class="com.os.udemy.jpahibernate.domain.Friend" />
+        <mapping class="com.os.udemy.jpahibernate.domain.Parent" />
     </session-factory>
 </hibernate-configuration>
