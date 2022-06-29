@@ -8,7 +8,7 @@
 		
 			<!-- Database connection settings -->
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:2345/bookstore" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bookstore" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="qbaosk20" />
 
@@ -20,6 +20,7 @@
 			
 			<!-- Pretty print the SQL in the log file and console -->
 			<property name="hibernate.format_sql" value="true" />
+			<!--<property name="hibernate.entity_dirtiness_strategy" value="com.os.udemy.jpa.misc.MyCustomEntityDirtinessStrategy" />-->
 		</properties>
 
 	</persistence-unit>
