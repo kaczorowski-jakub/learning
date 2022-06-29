@@ -38,6 +38,8 @@ func (m *Repository) AboutNew(w http.ResponseWriter, r *http.Request) {
 	// business logic
 	stringMap := make(map[string]string)
 	stringMap["test"] = "Hello again"
+	remoteIP := m.App.Session.GetString(r.Context(), "remote_ip")
+	stringMap["remote_ip"] = remoteIP
 	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
 		StringMap: stringMap,
 	})
@@ -45,6 +47,10 @@ func (m *Repository) AboutNew(w http.ResponseWriter, r *http.Request) {
 
 // Home is home page handler
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
+
+	remoteIP := r.RemoteAddr
+	m.App.Session.Put(r.Context(), "remote_ip", remoteIP)
+
 	fmt.Fprintf(w, "This is my Home page")
 }
 

@@ -3,18 +3,30 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"com.os.udemy.gowebb.basic/pkg/config"
 	"com.os.udemy.gowebb.basic/pkg/handlers"
 	"com.os.udemy.gowebb.basic/pkg/render"
+	"github.com/alexedwards/scs/v2"
 )
 
 const port = ":8080"
 
+var appCfg config.AppConfig
+var session *scs.SessionManager
+
 // from terminal go run *.go
 func main() {
 
-	var appCfg config.AppConfig
+	appCfg.InProduction = false
+
+	session = scs.New()
+	session.Lifetime = 24 * time.Hour
+	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = appCfg.InProduction
+	appCfg.Session = session
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
